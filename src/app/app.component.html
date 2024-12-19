@@ -1,0 +1,93 @@
+<div [ngSwitch]="estadoEnvio">
+  <p *ngSwitchCase="'pendiente'">Su envio esta pendiente</p>
+  <p *ngSwitchCase="'entregado'">Su envio ha sido entregado</p>
+  <p *ngSwitchCase="'rechazado'">Su envio ha sido rechazado</p>
+  <p *ngSwitchDefault>El estado de su envio es desconocido</p>
+</div>
+
+<hr />
+
+<p *ngIf="cargando; else tablaUsuariosTemplate">
+  Cargando, por favor espere...
+</p>
+<ng-template #tablaUsuariosTemplate>
+  <table>
+    <tbody>
+      <!-- ANGULAR 16 O INFERIOR -->
+      <!-- <tr *ngFor="let estudiante of estudiantes; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ estudiante }}</td>
+      </tr>
+      -->
+      <!-- ANGULAR 17 O SUPERIOR -->
+      @for (estudiante of estudiantes; track $index) {
+      <tr>
+        <td>{{ $index + 1 }}</td>
+        <td>{{ estudiante }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</ng-template>
+
+<hr />
+
+@if (cargando) {
+<p>Cargando, por favor espere...</p>
+} @else {
+<table>
+  <tbody>
+    @for (estudiante of estudiantes; track $index) {
+    <tr>
+      <td>{{ $index + 1 }}</td>
+      <td>{{ estudiante }}</td>
+    </tr>
+    }
+  </tbody>
+</table>
+}
+
+<hr />
+
+<p [ngClass]="hayError ? 'error' : 'success'">
+  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam praesentium
+  ratione minima vel fugiat id, accusamus in minus unde nisi veritatis, harum
+  magnam nostrum dolorem quasi voluptatibus quaerat? Corporis, odit.
+</p>
+
+<p
+  [ngClass]="{
+    success: estadoEnvio === 'entregado',
+    error: estadoEnvio === 'rechazado',
+    pending: estadoEnvio === 'pendiente'
+  }"
+>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ab itaque
+  ad libero accusantium nemo dolorem, eius, est blanditiis in repellat tempore
+  rem dolorum! Officiis eveniet autem fuga dolores facilis?
+</p>
+
+<p [class.error]="hayError" [class.success]="!hayError">
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum, dignissimos
+  ipsa. Suscipit accusamus quas, fugiat, iusto nihil, nulla aperiam laboriosam
+  modi minima vero sapiente laudantium non at quaerat voluptatem saepe.
+</p>
+
+<p
+  [style.text-decoration]="hayError ? 'underline' : 'unset'"
+  [ngStyle]="{
+    fontSize: hayError ? 'x-large' : 'small'
+  }"
+>
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita, quos.
+  Laboriosam iste odit vitae, itaque corrupti earum rerum perferendis dolorem
+  rem. Fugit consequatur, accusamus omnis a magni repellendus quia enim?
+</p>
+
+<p appResaltado>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, esse ipsa?
+  Quidem aliquid rem facilis corporis non dolor, neque pariatur vero!
+  Accusantium aliquam quo cum optio libero velit sequi nihil.
+</p>
+
+<h1 appResaltado>Hola mundo</h1>
