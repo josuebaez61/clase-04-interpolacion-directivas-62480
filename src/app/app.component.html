@@ -1,3 +1,59 @@
+<p>Productos en el carrito: {{ carrito | json }}</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nombre</th>
+      <th>Fecha</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      [ngClass]="videojuego.soldout ? 'error' : 'success'"
+      *ngFor="let videojuego of videojuegos; let i = index"
+    >
+      <td>{{ i + 1 }}</td>
+      <td>{{ videojuego.nombre }}</td>
+      <td>{{ videojuego.lanzamiento | date : "dd-MM-YYYY" }}</td>
+      <td>
+        <button
+          [disabled]="videojuego.soldout"
+          (click)="agregarAlCarrito(videojuego)"
+        >
+          Agregar al carrito
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>La fecha de hoy es {{ hoy | date : "dd-MM-YYYY hh:mm" }}</p>
+
+<p>Playstation 5 {{ precioPS5 | currency }}</p>
+
+<pre>{{ pokemon | json | uppercase }}</pre>
+
+<p>{{ nombreUsuario | uppercase }}</p>
+<p>{{ nombreUsuario | titlecase }}</p>
+
+<p>{{ porcentaje | percent }}</p>
+
+<form>
+  <input name="nombreUsuario" [(ngModel)]="nombreUsuario" />
+</form>
+
+<p>El valor de nombreUsuario es: {{ nombreUsuario }}</p>
+
+<button
+  (mouseenter)="hayError = true"
+  (mouseleave)="hayError = false"
+  (click)="onClick($event)"
+>
+  Guardar
+</button>
+
 <div [ngSwitch]="estadoEnvio">
   <p *ngSwitchCase="'pendiente'">Su envio esta pendiente</p>
   <p *ngSwitchCase="'entregado'">Su envio ha sido entregado</p>
